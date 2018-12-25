@@ -35,7 +35,7 @@ class IterationSample extends Component {
     const { names } = this.state;
     this.setState({
       names: names.filter((item, i) => i !== index)
-    })
+    });
   }
 
   render() {
