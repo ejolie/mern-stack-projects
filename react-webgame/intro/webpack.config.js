@@ -2,18 +2,14 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  name: "wordrelay-setting",
-  mode: "development", // 실서비스: production
-  devtool: "eval", // 실서비스 : hiiden-source-map
+  mode: "development",
+  devtool: "eval",
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".jsx", ".js"]
   },
-
-  // 입력
   entry: {
-    app: ["./client"]
+    app: "./client"
   },
-
   module: {
     rules: [
       {
@@ -32,21 +28,14 @@ module.exports = {
             ],
             "@babel/preset-react"
           ],
-          plugins: [
-            "@babel/plugin-proposal-class-properties",
-            "react-hot-loader/babel"
-          ]
+          plugins: []
         }
       }
     ]
   },
-
   plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
-
-  // 출력
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "app.js",
-    publicPath: "/dist/"
+    filename: "app.js"
   }
 };
