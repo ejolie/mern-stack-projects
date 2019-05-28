@@ -1,22 +1,10 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-
-const dummy = {
-  isLoggedIn: true,
-  imagePaths: [],
-  mainPosts: [
-    {
-      user: {
-        id: 1,
-        nickname: "박은정"
-      },
-      content: "첫 번째 게시글",
-      img: ""
-    }
-  ]
-};
+import { useSelector } from "react-redux";
 
 const PostForm = () => {
+  const { imagePaths } = useSelector((state) => state.user.post);
+
   return (
     <Form encType="multipart/form-data">
       <Input.TextArea maxLength={140} placeholder="오늘의 기분은 어떠신가요?" />
@@ -28,7 +16,7 @@ const PostForm = () => {
         </Button>
       </div>
       <div>
-        {dummy.imagePaths.map((v) => {
+        {imagePaths.map((v) => {
           return (
             <div key={v} style={{ display: "inline-block" }}>
               <img

@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Checkbox, Button } from "antd";
 
+import { useDispatch } from "react-redux";
+import { signUpAction } from "../reducers/user";
+
 // Custom Hook
 export const useInput = (initValue = null) => {
   const [value, setter] = useState(initValue);
@@ -20,6 +23,8 @@ const Signup = () => {
   const [nickname, onChangeNickname] = useInput("");
   const [password, onChangePassword] = useInput("");
 
+  const dispatch = useDispatch();
+
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -29,7 +34,14 @@ const Signup = () => {
       if (!term) {
         return setTermError(true);
       }
-      // 제출
+      // 제출 - 동적 데이터를 넣어주는 action 함수 호출
+      dispatch(
+        signUpAction({
+          id,
+          password,
+          nickname
+        })
+      );
     },
     [password, passwordCheck, term]
   );

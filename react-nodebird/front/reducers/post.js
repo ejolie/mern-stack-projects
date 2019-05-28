@@ -1,5 +1,15 @@
 export const initialState = {
-  mainPosts: []
+  mainPosts: [
+    {
+      user: {
+        id: 1,
+        nickname: "박은정"
+      },
+      content: "첫 번째 게시글",
+      img: "https://pbs.twimg.com/media/D1dZVehWwAATF8a.jpg"
+    }
+  ],
+  imagePaths: []
 };
 
 const ADD_POST = "ADD_POST";
