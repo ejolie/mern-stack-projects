@@ -1,14 +1,16 @@
-import React from "react";
-import Link from "next/link";
-import PropTypes from "prop-types";
-import { Menu, Input, Row, Col, Card, Avatar } from "antd";
-import { useSelector } from "react-redux";
+import React from 'react';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import {
+  Menu, Input, Row, Col, Card, Avatar,
+} from 'antd';
+import { useSelector } from 'react-redux';
 
-import LoginForm from "./LoginForm";
-import UserProfile from "./UserProfile";
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const Layout = ({ children }) => {
-  const { user, isLoggedIn } = useSelector((state) => state.user);
+  const { user, isLoggedIn } = useSelector(state => state.user);
   return (
     <div>
       <Menu mode="horizontal">
@@ -23,7 +25,7 @@ const Layout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item key="mail">
-          <Input.Search enterButton style={{ verticalAlign: "middle" }} />
+          <Input.Search enterButton style={{ verticalAlign: 'middle' }} />
         </Menu.Item>
       </Menu>
       <Row>
@@ -44,7 +46,7 @@ const Layout = ({ children }) => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default Layout;

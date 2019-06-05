@@ -1,23 +1,30 @@
 import React, { useCallback } from "react";
 import Link from "next/link";
 import { Input, Button, Form } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useInput } from "../pages/signup";
-import { loginAction } from "../reducers/user";
+import { LOG_IN_REQUEST } from "../reducers/user";
 
 const LoginForm = () => {
-  const [userId, onChangeId] = useInput("");
-  const [userPassword, onChangePassword] = useInput("");
+  const [id, onChangeId] = useInput("");
+  const [password, onChangePassword] = useInput("");
+  const { isLoggingIn } = useSelector(state => user.state);
   const dispatch = useDispatch();
 
   // 자식 컴포넌트에 넘기는 함수는 useCallback으로 감싸준다
   const onSubmitForm = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(loginAction);
+      dispatch({
+        type: LOG_IN_REQUEST,
+        data: {
+          id,
+          password
+        }
+      });
     },
-    [userId, userPassword]
+    [id, password]
   );
 
   return (
@@ -28,7 +35,7 @@ const LoginForm = () => {
         <Input
           name="user-id"
           type="text"
-          value={userId}
+          value={id}
           onChange={onChangeId}
           required
         />
@@ -39,13 +46,13 @@ const LoginForm = () => {
         <Input
           name="user-password"
           tyle="password"
-          value={userPassword}
+          value={password}
           onChange={onChangePassword}
           required
         />
       </div>
       <div>
-        <Button htmlType="submit" onSubmit={onSubmitForm} loading={false}>
+        <Button htmlType="submit" onSubmit={onSubmitForm} loading={isLoggingIn}>
           로그인
         </Button>
         <Link href="/signup">

@@ -1,69 +1,115 @@
 export const dummyUser = {
-  nickname: "박은정",
+  nickname: '박은정',
   Post: [],
   Followings: [],
   Followers: [],
-  isLoggedIn: false,
-  signUpData: {}
+  id: 1,
 };
 
 export const initialState = {
-  isLoggedIn: false,
-  user: null
+  isLoading: false,       // 로그인 아웃
+  isLoggingIn: false,     // 로그인 시도중
+  isLoggingOut: false,    // 로그아웃 시도중
+  logInErrorReason: '',   // 로그인 실패 이유
+  isSigningUp: false,     // 회원가입 시도중
+  isSignedUp: false,      // 회원가입 완료
+  signUpErrorReason: '',  // 회원가입 실패 사유
+  me: null,               // 내 정보
+  followingList: [],      // 팔로잉 리스트
+  followerList: [],       // 팔로워 리스트
+  userInfo: null,         // 남의 정보
 };
 
-export const LOG_IN = "LOG_IN"; // action의 이름
-export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
-export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
-export const LOG_OUT = "LOG_OUT";
-export const SIGN_UP = "SIGN_UP";
+// 비동기 요청 - 최소 3개의 action set, redux-saga 필요
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
-export const loginAction = {
-  // 실제 action - action의 이름과 데이터
-  type: LOG_IN,
-  data: {
-    nickname: "박은정"
-  }
-};
+export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
-export const logoutAction = {
-  type: LOG_OUT
-};
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
-// action에 넣을 데이터가 동적인 경우 , 하드코딩 X action을 돌려주는 함수 생성
-export const signUpAction = (data) => {
-  return {
-    type: SIGN_UP,
-    data: data
-  };
-};
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
+
+export const LOAD_FOLLOW_REQUEST = 'LOAD_FOLLOW_REQUEST';
+export const LOAD_FOLLOW_SUCCESS = 'LOAD_FOLLOW_SUCCESS';
+export const LOAD_FOLLOW_FAILURE = 'LOAD_FOLLOW_FAILURE';
+
+export const FOLLOW_USER_REQUEST = 'FOLLOW_USER_REQUEST';
+export const FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS';
+export const FOLLOW_USER_FAILURE = 'FOLLOW_USER_FAILURE';
+
+export const UNFOLLOW_USER_REQUEST = 'UNFOLLOW_USER_REQUEST';
+export const UNFOLLOW_USER_SUCCESS = 'UNFOLLOW_USER_SUCCESS';
+export const UNFOLLOW_USER_FAILURE = 'UNFOLLOW_USER_FAILURE';
+
+export const REMOVE_FOLLOWER_REQUEST = 'REMOVE_FOLLOWER_REQUEST';
+export const REMOVE_FOLLOWER_SUCCESS = 'REMOVE_FOLLOWER_SUCCESS';
+export const REMOVE_FOLLOWER_FAILURE = 'REMOVE_FOLLOWER_FAILURE';
+
+export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOG_IN: {
+    // login
+    case LOG_IN_REQUEST: {
       return {
         ...state,
+        isLoading: true,
+        isLoggingIn: true,
+        me: action.data,
+      };
+    }
+    case LOG_IN_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        igLoggingIn: false,
         isLoggedIn: true,
-        // user: action.data
-        user: dummyUser
+        logInErrorReason: '',
+        me: action.data
       };
     }
-    case LOG_OUT: {
+    case LOG_OUT_FAILURE: {
       return {
         ...state,
+        isLoggingIn: false,
         isLoggedIn: false,
-        user: null
+        logInErrorReason: action.error,
+        me: null,
       };
     }
-    case SIGN_UP: {
+    // singup
+    case SIGN_UP_REQUEST: {
       return {
         ...state,
-        signUpData: action.data
+        isSigningUp: true,
+        isSignedUp: false,
       };
+    }
+    case SIGN_UP_SUCCESS: {
+      return {
+        ...state,
+        isSigningUp: false,
+        isSignedUp: true,
+      }
+    }
+    case SIGN_UP_FAILURE: {
+      return {
+        ...state,
+        isSigningUp: false,
+        signUpErrorReason: action.error
+      }
     }
     default: {
       return {
-        ...state
+        ...state,
       };
     }
   }
