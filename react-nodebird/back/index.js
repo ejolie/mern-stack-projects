@@ -1,10 +1,16 @@
 const express = require('express');
 
-const app = express();
+const userAPIRouter = require('./routes/user');
+const postAPIRouter = require('./routes/post');
+const postsAPIRouter = require('./routes/posts');
 
-app.get('/', (req, res) => {
-  res.send('hello');
-});
+const app = express();
+db.sequelize.sync();
+
+// 라우터 분리
+app.use('/api/user', userAPIRouter);
+app.use('/api/post', postAPIRouter);
+app.use('/api/posts', postsAPIRouter);
 
 app.listen(8080, () => {
   console.log('server is running on localhost:8080');
