@@ -1,3 +1,3 @@
-# 🧘🏻‍♀️ React, GraphQL, Apollo Practice
+# 🧘🏻‍♀️ React Practice
 
-This repository is for practice of making websites with React, GraphQL and Apollo.
+This is the repository to practice making websites with React and related libraries.
