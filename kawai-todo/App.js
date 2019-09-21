@@ -23,11 +23,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Text style={styles.title}>Kawai Todo</Text>
+      <Text style={styles.title}>Kawai To Do</Text>
       <View style={styles.card}>
         <TextInput
           style={styles.input}
-          placeholder={'New Todo'}
+          placeholder={'New To Do'}
           placeholderTextColor={'#999'}
           value={newTodo}
           onChangeText={_controlNewToDo}
@@ -35,7 +35,7 @@ export default function App() {
           autoCorrect={false}
         />
       </View>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.toDos}>
         <ToDo />
       </ScrollView>
     </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
     marginTop: 50,
-    fontWeight: 200,
+    fontWeight: '200',
     marginBottom: 30
   },
   card: {
@@ -87,5 +87,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#bbb',
     borderBottomWidth: 1,
     fontSize: 25
+  },
+  toDos: {
+    alignItems: 'center'
   }
 });

@@ -1,3 +1,3 @@
-# Kawai Todo
+# Kawai To Do
 
-Kawai To do App made with React Native
+Kawai To Do App made with React Native
