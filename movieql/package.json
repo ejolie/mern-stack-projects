@@ -6,7 +6,7 @@
   "author": "Eunjeong Park",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "graphql-yoga": "^1.17.4",
     "node-fetch": "^2.4.1",
     "nodemon": "^1.18.11"
